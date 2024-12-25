@@ -1,0 +1,47 @@
+[project]
+name = "basicMLTemplate"
+description = "A project that does ML stuff"
+authors = ["DawnMagnet<axccjqh@qq.com>"]
+channels = ["conda-forge", "pytorch"]
+platforms = ["win-64", "linux-64"]
+
+[dependencies]
+python = "3.11.*"
+pytorch = { version = "==2.3", channel = "pytorch" }
+torchvision = { version = "*", channel = "pytorch" }
+torchaudio = { version = "*", channel = "pytorch" }
+ipykernel = "*"
+seaborn = "*"
+timm = "*"
+einops = "*"
+
+[feature.cuda118]
+platforms = ["win-64", "linux-64"]
+channels = ["nvidia", { channel = "pytorch", priority = -1 }]
+system-requirements = { cuda = "11.8" }
+
+[feature.cuda118.dependencies]
+pytorch-cuda = { version = "11.8.*", channel = "pytorch" }
+
+[feature.cuda124]
+platforms = ["win-64", "linux-64"]
+channels = ["nvidia", { channel = "pytorch", priority = -1 }]
+system-requirements = { cuda = "12.4" }
+
+[feature.cuda124.dependencies]
+pytorch-cuda = { version = "12.4.*", channel = "pytorch" }
+
+[feature.cpu]
+platforms = ["win-64", "linux-64"]
+
+[environments]
+# cuda = ["cuda118"]
+# cuda11 = ["cuda118"]
+# cuda12 = ["cuda124"]
+# cpu = ["cpu"]
+default = ["cuda124"]
+
+[pypi-dependencies]
+thop = ">=0.1.1.post2209072238, <0.2"
+# current path as package
+ultralytics = { path = "." }
