@@ -5,7 +5,7 @@ from typing import Callable, Any
 
 import torch.nn as nn
 from einops import rearrange, repeat
-from timm.models.layers import DropPath
+from timm.layers.drop import DropPath
 
 DropPath.__repr__ = lambda self: f"timm.DropPath({self.drop_prob})"
 try:
