@@ -3,57 +3,32 @@ name = "basicMLTemplate"
 description = "A project that does ML stuff"
 authors = ["DawnMagnet<axccjqh@qq.com>"]
 channels = ["conda-forge", "pytorch"]
-platforms = ["win-64", "linux-64"]
+platforms = ["linux-64"]
+
+[system-requirements]
+cuda = "12.0"
 
 [dependencies]
 python = "3.12.*"
-pytorch = { version = "*", channel = "pytorch" }
-torchvision = { version = "*", channel = "pytorch" }
-
-ipykernel = "*"
+ipython = "*"
 seaborn = "*"
 timm = "*"
-setuptools = "*"
-pip = "*"
+pip = ">=24.3.1,<25"
 einops = "*"
-
-[feature.cuda118]
-platforms = ["win-64", "linux-64"]
-channels = ["nvidia", { channel = "pytorch", priority = -1 }]
-system-requirements = { cuda = "11.8" }
-
-[feature.cuda118.dependencies]
-pytorch-cuda = { version = "11.8.*", channel = "pytorch" }
-cuda-toolkit = { version = "11.8.*", channel = "nvidia" }
-
-[feature.cuda124]
-platforms = ["win-64", "linux-64"]
-channels = ["nvidia", { channel = "pytorch", priority = -1 }]
-system-requirements = { cuda = "12.4" }
-
-[feature.cuda124.dependencies]
-pytorch-cuda = { version = "12.4.*", channel = "pytorch" }
-cuda-toolkit = { version = "12.4.*", channel = "nvidia" }
-
-
-[feature.cpu]
-platforms = ["win-64", "linux-64"]
-
-[environments]
-# cuda = ["cuda118"]
-# cuda11 = ["cuda118"]
-# cuda12 = ["cuda124"]
-# cpu = ["cpu"]
-default = ["cuda124"]
-
-[pypi-dependencies]
-thop = ">=0.1.1.post2209072238, <0.2"
+setuptools = ">=75.6.0,<76"
+opencv = ">=4.10.0,<5"
+supervision = ">=0.25.1,<0.26"
+cuda-version = "12.6"
+pytorch-gpu = "*"
 
 [tasks]
-install-selective-scan = { cmd = "export CUDA_HOME=$CONDA_PREFIX && pip install .", cwd = "selective_scan" }
+install-selective-scan = { cmd = "export CUDA_HOME=/opt/cuda && pip install .", cwd = "selective_scan" }
+# you can replace with pip install "prebuild.whl" if you have a prebuild wheel
+
 install-ultralytics = { cmd = "pip install -e .", cwd = "." }
 
 post-install = { depends-on = [
     "install-selective-scan",
     "install-ultralytics",
 ] }
+
